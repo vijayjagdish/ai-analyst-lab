@@ -1,0 +1,349 @@
+{
+  "tables": {
+    "department_details": 5,
+    "subject_details": 50,
+    "student_performance": 2400
+  },
+  "profile": {
+    "row_count": 2400,
+    "student_count": 240,
+    "subject_count": 50,
+    "department_count": 5,
+    "semesters": [
+      3,
+      4
+    ],
+    "columns": [
+      "student_id",
+      "student_name",
+      "department",
+      "semester",
+      "subject",
+      "marks",
+      "total_marks",
+      "attendance"
+    ],
+    "missing": {
+      "student_id": 0,
+      "student_name": 0,
+      "department": 0,
+      "semester": 0,
+      "subject": 0,
+      "marks": 14,
+      "total_marks": 0,
+      "attendance": 18
+    },
+    "total_marks_values": [
+      50,
+      100
+    ],
+    "mean_percentage": 65.0
+  },
+  "department_average": [
+    [
+      "CSE",
+      68.47
+    ],
+    [
+      "IT",
+      67.19
+    ],
+    [
+      "CE",
+      64.29
+    ],
+    [
+      "ECE",
+      63.31
+    ],
+    [
+      "ME",
+      61.76
+    ]
+  ],
+  "graph": {
+    "find": {
+      "data structures": [
+        "CS301",
+        "CS305",
+        "IT301"
+      ],
+      "CS301": [
+        "CS301"
+      ]
+    },
+    "prerequisites": {
+      "CS603": {
+        "transitive": [
+          {
+            "code": "CS301",
+            "name": "Data Structures",
+            "semester": 3,
+            "direct": false
+          },
+          {
+            "code": "CS303",
+            "name": "Discrete Mathematics",
+            "semester": 3,
+            "direct": false
+          },
+          {
+            "code": "CS401",
+            "name": "Design and Analysis of Algorithms",
+            "semester": 4,
+            "direct": false
+          },
+          {
+            "code": "CS404",
+            "name": "Probability and Statistics",
+            "semester": 4,
+            "direct": false
+          },
+          {
+            "code": "CS503",
+            "name": "Machine Learning",
+            "semester": 5,
+            "direct": true
+          }
+        ],
+        "direct": [
+          {
+            "code": "CS503",
+            "name": "Machine Learning",
+            "semester": 5,
+            "direct": true
+          }
+        ]
+      },
+      "CS401": {
+        "transitive": [
+          {
+            "code": "CS301",
+            "name": "Data Structures",
+            "semester": 3,
+            "direct": true
+          },
+          {
+            "code": "CS303",
+            "name": "Discrete Mathematics",
+            "semester": 3,
+            "direct": true
+          }
+        ],
+        "direct": [
+          {
+            "code": "CS301",
+            "name": "Data Structures",
+            "semester": 3,
+            "direct": true
+          },
+          {
+            "code": "CS303",
+            "name": "Discrete Mathematics",
+            "semester": 3,
+            "direct": true
+          }
+        ]
+      },
+      "CS301": {
+        "transitive": [],
+        "direct": []
+      }
+    },
+    "dependents": {
+      "CS301": [
+        {
+          "code": "CS401",
+          "name": "Design and Analysis of Algorithms",
+          "semester": 4,
+          "direct": true
+        },
+        {
+          "code": "CS403",
+          "name": "Database Management Systems",
+          "semester": 4,
+          "direct": true
+        },
+        {
+          "code": "CS501",
+          "name": "Operating Systems",
+          "semester": 5,
+          "direct": true
+        },
+        {
+          "code": "CS503",
+          "name": "Machine Learning",
+          "semester": 5,
+          "direct": false
+        },
+        {
+          "code": "CS601",
+          "name": "Compiler Design",
+          "semester": 6,
+          "direct": false
+        },
+        {
+          "code": "CS602",
+          "name": "Distributed Systems",
+          "semester": 6,
+          "direct": false
+        },
+        {
+          "code": "CS603",
+          "name": "Deep Learning",
+          "semester": 6,
+          "direct": false
+        },
+        {
+          "code": "CS604",
+          "name": "Cloud Computing",
+          "semester": 6,
+          "direct": false
+        },
+        {
+          "code": "CS605",
+          "name": "Capstone Project Lab",
+          "semester": 6,
+          "direct": false
+        }
+      ],
+      "CS605": []
+    },
+    "support": {
+      "CS301": {
+        "subject": {
+          "code": "CS301",
+          "name": "Data Structures",
+          "department": "CSE",
+          "semester": 3
+        },
+        "taught_by": {
+          "name": "Dr. Anitha Raman",
+          "designation": "Professor",
+          "email": "anitha.raman@ccit.example"
+        },
+        "remedial_courses": [
+          {
+            "title": "Bridge Course in Data Structures",
+            "coordinator": "Prof. Sneha Kulkarni",
+            "coordinator_email": "sneha.kulkarni@ccit.example",
+            "duration_weeks": 6,
+            "mode": "Weekend",
+            "seat_limit": 40
+          }
+        ]
+      },
+      "CS402": {
+        "subject": {
+          "code": "CS402",
+          "name": "Computer Organization and Architecture",
+          "department": "CSE",
+          "semester": 4
+        },
+        "taught_by": {
+          "name": "Dr. Anitha Raman",
+          "designation": "Professor",
+          "email": "anitha.raman@ccit.example"
+        },
+        "remedial_courses": []
+      }
+    },
+    "career": {
+      "Data Scientist/CSE": {
+        "track": "Data Scientist",
+        "skills": [
+          "Database Design",
+          "Machine Learning",
+          "Programming",
+          "Statistics and Probability"
+        ],
+        "subjects": [
+          {
+            "code": "CS403",
+            "name": "Database Management Systems",
+            "department": "CSE",
+            "semester": 4,
+            "skill": "Database Design"
+          },
+          {
+            "code": "CS405",
+            "name": "Database Systems Lab",
+            "department": "CSE",
+            "semester": 4,
+            "skill": "Database Design"
+          },
+          {
+            "code": "CS503",
+            "name": "Machine Learning",
+            "department": "CSE",
+            "semester": 5,
+            "skill": "Machine Learning"
+          },
+          {
+            "code": "CS505",
+            "name": "Machine Learning Lab",
+            "department": "CSE",
+            "semester": 5,
+            "skill": "Machine Learning"
+          },
+          {
+            "code": "CS603",
+            "name": "Deep Learning",
+            "department": "CSE",
+            "semester": 6,
+            "skill": "Machine Learning"
+          },
+          {
+            "code": "CS301",
+            "name": "Data Structures",
+            "department": "CSE",
+            "semester": 3,
+            "skill": "Programming"
+          },
+          {
+            "code": "CS304",
+            "name": "Object Oriented Programming",
+            "department": "CSE",
+            "semester": 3,
+            "skill": "Programming"
+          },
+          {
+            "code": "CS305",
+            "name": "Data Structures Lab",
+            "department": "CSE",
+            "semester": 3,
+            "skill": "Programming"
+          },
+          {
+            "code": "CS405",
+            "name": "Database Systems Lab",
+            "department": "CSE",
+            "semester": 4,
+            "skill": "Programming"
+          },
+          {
+            "code": "CS505",
+            "name": "Machine Learning Lab",
+            "department": "CSE",
+            "semester": 5,
+            "skill": "Programming"
+          },
+          {
+            "code": "CS404",
+            "name": "Probability and Statistics",
+            "department": "CSE",
+            "semester": 4,
+            "skill": "Statistics and Probability"
+          },
+          {
+            "code": "CS503",
+            "name": "Machine Learning",
+            "department": "CSE",
+            "semester": 5,
+            "skill": "Statistics and Probability"
+          }
+        ]
+      }
+    }
+  }
+}

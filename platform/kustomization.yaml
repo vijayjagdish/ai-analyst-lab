@@ -1,0 +1,29 @@
+# NOT APPLIED. Renders the three data services for a cluster:
+#
+#     kubectl kustomize platform/                 # render only - contacts no cluster
+#     kubectl apply -f platform/k8s/secrets.yaml  # (when you decide to deploy)
+#     kubectl apply -k platform/
+#
+# It lives in platform/ rather than platform/k8s/ so the PostgreSQL init script
+# can be loaded from the ONE copy of it (postgres/00-harden.sql) that the
+# docker-compose stack also mounts - kustomize will not read a file above its
+# own directory.
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - k8s/00-namespace.yaml
+  - k8s/10-postgres.yaml
+  - k8s/20-qdrant.yaml
+  - k8s/30-fuseki.yaml
+
+configMapGenerator:
+  - name: analyst-postgres-init
+    namespace: ai-data-services
+    files:
+      - postgres/00-harden.sql
+
+generatorOptions:
+  # A stable name: the script only runs when the data directory is first
+  # initialised, so there is nothing to roll when its content changes.
+  disableNameSuffixHash: true

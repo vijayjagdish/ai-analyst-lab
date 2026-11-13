@@ -1,0 +1,13 @@
+# Never bake a real key into an image - the entrypoint creates .env per workspace.
+**/.env
+platform/student.env
+
+# Run artefacts.
+**/__pycache__/
+**/.pytest_cache/
+**/.ipynb_checkpoints/
+assignment-src/output/
+home-default/analyst-agent-assignment/output/*
+!home-default/analyst-agent-assignment/output/.gitkeep
+
+.git

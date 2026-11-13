@@ -1,0 +1,736 @@
+{
+  "subject_average_lowest": [
+    "EC404",
+    50.79
+  ],
+  "department_pass_percentage": [
+    [
+      "ME",
+      90.63
+    ],
+    [
+      "CE",
+      93.13
+    ],
+    [
+      "CSE",
+      96.04
+    ],
+    [
+      "ECE",
+      96.04
+    ],
+    [
+      "IT",
+      98.96
+    ]
+  ],
+  "graph": {
+    "find": {
+      "fluid mechanics": [
+        "CE304",
+        "ME401",
+        "ME405"
+      ],
+      "capstone": [
+        "CE605",
+        "CS605",
+        "EC605",
+        "IT605",
+        "ME605"
+      ]
+    },
+    "prerequisites": {
+      "ME604": {
+        "transitive": [
+          {
+            "code": "ME301",
+            "name": "Engineering Thermodynamics",
+            "semester": 3,
+            "direct": false
+          },
+          {
+            "code": "ME302",
+            "name": "Mechanics of Solids",
+            "semester": 3,
+            "direct": false
+          },
+          {
+            "code": "ME402",
+            "name": "Kinematics of Machinery",
+            "semester": 4,
+            "direct": false
+          },
+          {
+            "code": "ME403",
+            "name": "Applied Thermodynamics",
+            "semester": 4,
+            "direct": true
+          },
+          {
+            "code": "ME502",
+            "name": "Dynamics of Machinery",
+            "semester": 5,
+            "direct": true
+          }
+        ],
+        "direct": [
+          {
+            "code": "ME403",
+            "name": "Applied Thermodynamics",
+            "semester": 4,
+            "direct": true
+          },
+          {
+            "code": "ME502",
+            "name": "Dynamics of Machinery",
+            "semester": 5,
+            "direct": true
+          }
+        ]
+      },
+      "EC601": {
+        "transitive": [
+          {
+            "code": "EC301",
+            "name": "Network Analysis",
+            "semester": 3,
+            "direct": false
+          },
+          {
+            "code": "EC302",
+            "name": "Electronic Devices and Circuits",
+            "semester": 3,
+            "direct": false
+          },
+          {
+            "code": "EC303",
+            "name": "Signals and Systems",
+            "semester": 3,
+            "direct": false
+          },
+          {
+            "code": "EC401",
+            "name": "Analog Circuits",
+            "semester": 4,
+            "direct": false
+          },
+          {
+            "code": "EC501",
+            "name": "Digital Signal Processing",
+            "semester": 5,
+            "direct": true
+          },
+          {
+            "code": "EC502",
+            "name": "Analog Communication",
+            "semester": 5,
+            "direct": true
+          }
+        ],
+        "direct": [
+          {
+            "code": "EC501",
+            "name": "Digital Signal Processing",
+            "semester": 5,
+            "direct": true
+          },
+          {
+            "code": "EC502",
+            "name": "Analog Communication",
+            "semester": 5,
+            "direct": true
+          }
+        ]
+      },
+      "IT605": {
+        "transitive": [
+          {
+            "code": "IT301",
+            "name": "Data Structures and Algorithms",
+            "semester": 3,
+            "direct": false
+          },
+          {
+            "code": "IT303",
+            "name": "Discrete Structures",
+            "semester": 3,
+            "direct": false
+          },
+          {
+            "code": "IT304",
+            "name": "Programming in Java",
+            "semester": 3,
+            "direct": false
+          },
+          {
+            "code": "IT401",
+            "name": "Database Management Systems",
+            "semester": 4,
+            "direct": false
+          },
+          {
+            "code": "IT404",
+            "name": "Statistics for Data Science",
+            "semester": 4,
+            "direct": false
+          },
+          {
+            "code": "IT405",
+            "name": "Web Development Lab",
+            "semester": 4,
+            "direct": false
+          },
+          {
+            "code": "IT502",
+            "name": "Web Technologies",
+            "semester": 5,
+            "direct": true
+          },
+          {
+            "code": "IT503",
+            "name": "Data Mining",
+            "semester": 5,
+            "direct": true
+          }
+        ],
+        "direct": [
+          {
+            "code": "IT502",
+            "name": "Web Technologies",
+            "semester": 5,
+            "direct": true
+          },
+          {
+            "code": "IT503",
+            "name": "Data Mining",
+            "semester": 5,
+            "direct": true
+          }
+        ]
+      },
+      "CE605": {
+        "transitive": [
+          {
+            "code": "CE301",
+            "name": "Strength of Materials",
+            "semester": 3,
+            "direct": false
+          },
+          {
+            "code": "CE303",
+            "name": "Building Materials and Construction",
+            "semester": 3,
+            "direct": false
+          },
+          {
+            "code": "CE401",
+            "name": "Structural Analysis",
+            "semester": 4,
+            "direct": false
+          },
+          {
+            "code": "CE402",
+            "name": "Geotechnical Engineering",
+            "semester": 4,
+            "direct": false
+          },
+          {
+            "code": "CE404",
+            "name": "Concrete Technology",
+            "semester": 4,
+            "direct": false
+          },
+          {
+            "code": "CE501",
+            "name": "Design of Reinforced Concrete Structures",
+            "semester": 5,
+            "direct": true
+          },
+          {
+            "code": "CE502",
+            "name": "Foundation Engineering",
+            "semester": 5,
+            "direct": true
+          }
+        ],
+        "direct": [
+          {
+            "code": "CE501",
+            "name": "Design of Reinforced Concrete Structures",
+            "semester": 5,
+            "direct": true
+          },
+          {
+            "code": "CE502",
+            "name": "Foundation Engineering",
+            "semester": 5,
+            "direct": true
+          }
+        ]
+      },
+      "ME301": {
+        "transitive": [],
+        "direct": []
+      }
+    },
+    "dependents": {
+      "ME301": [
+        {
+          "code": "ME401",
+          "name": "Fluid Mechanics",
+          "semester": 4,
+          "direct": true
+        },
+        {
+          "code": "ME403",
+          "name": "Applied Thermodynamics",
+          "semester": 4,
+          "direct": true
+        },
+        {
+          "code": "ME501",
+          "name": "Heat Transfer",
+          "semester": 5,
+          "direct": false
+        },
+        {
+          "code": "ME505",
+          "name": "Heat Transfer Lab",
+          "semester": 5,
+          "direct": false
+        },
+        {
+          "code": "ME602",
+          "name": "Refrigeration and Air Conditioning",
+          "semester": 6,
+          "direct": false
+        },
+        {
+          "code": "ME604",
+          "name": "Automobile Engineering",
+          "semester": 6,
+          "direct": false
+        }
+      ],
+      "EC303": [
+        {
+          "code": "EC402",
+          "name": "Control Systems",
+          "semester": 4,
+          "direct": true
+        },
+        {
+          "code": "EC501",
+          "name": "Digital Signal Processing",
+          "semester": 5,
+          "direct": true
+        },
+        {
+          "code": "EC502",
+          "name": "Analog Communication",
+          "semester": 5,
+          "direct": true
+        },
+        {
+          "code": "EC505",
+          "name": "Signal Processing Lab",
+          "semester": 5,
+          "direct": true
+        },
+        {
+          "code": "EC601",
+          "name": "Digital Communication",
+          "semester": 6,
+          "direct": false
+        },
+        {
+          "code": "EC602",
+          "name": "Wireless Communication",
+          "semester": 6,
+          "direct": false
+        },
+        {
+          "code": "EC605",
+          "name": "Capstone Project Lab",
+          "semester": 6,
+          "direct": false
+        }
+      ],
+      "IT301": [
+        {
+          "code": "IT401",
+          "name": "Database Management Systems",
+          "semester": 4,
+          "direct": true
+        },
+        {
+          "code": "IT402",
+          "name": "Operating Systems",
+          "semester": 4,
+          "direct": true
+        },
+        {
+          "code": "IT501",
+          "name": "Computer Networks",
+          "semester": 5,
+          "direct": false
+        },
+        {
+          "code": "IT502",
+          "name": "Web Technologies",
+          "semester": 5,
+          "direct": false
+        },
+        {
+          "code": "IT503",
+          "name": "Data Mining",
+          "semester": 5,
+          "direct": false
+        },
+        {
+          "code": "IT504",
+          "name": "Information Security",
+          "semester": 5,
+          "direct": false
+        },
+        {
+          "code": "IT601",
+          "name": "Cloud Computing",
+          "semester": 6,
+          "direct": false
+        },
+        {
+          "code": "IT602",
+          "name": "Big Data Analytics",
+          "semester": 6,
+          "direct": false
+        },
+        {
+          "code": "IT603",
+          "name": "Mobile Application Development",
+          "semester": 6,
+          "direct": false
+        },
+        {
+          "code": "IT604",
+          "name": "DevOps Engineering",
+          "semester": 6,
+          "direct": false
+        },
+        {
+          "code": "IT605",
+          "name": "Capstone Project Lab",
+          "semester": 6,
+          "direct": false
+        }
+      ],
+      "CE303": [
+        {
+          "code": "CE402",
+          "name": "Geotechnical Engineering",
+          "semester": 4,
+          "direct": true
+        },
+        {
+          "code": "CE404",
+          "name": "Concrete Technology",
+          "semester": 4,
+          "direct": true
+        },
+        {
+          "code": "CE405",
+          "name": "Concrete Lab",
+          "semester": 4,
+          "direct": true
+        },
+        {
+          "code": "CE501",
+          "name": "Design of Reinforced Concrete Structures",
+          "semester": 5,
+          "direct": false
+        },
+        {
+          "code": "CE502",
+          "name": "Foundation Engineering",
+          "semester": 5,
+          "direct": false
+        },
+        {
+          "code": "CE505",
+          "name": "Geotechnical Lab",
+          "semester": 5,
+          "direct": false
+        },
+        {
+          "code": "CE603",
+          "name": "Construction Planning and Management",
+          "semester": 6,
+          "direct": false
+        },
+        {
+          "code": "CE604",
+          "name": "Estimation and Costing",
+          "semester": 6,
+          "direct": false
+        },
+        {
+          "code": "CE605",
+          "name": "Capstone Project Lab",
+          "semester": 6,
+          "direct": false
+        }
+      ],
+      "EC605": []
+    },
+    "support": {
+      "ME301": {
+        "subject": {
+          "code": "ME301",
+          "name": "Engineering Thermodynamics",
+          "department": "ME",
+          "semester": 3
+        },
+        "taught_by": {
+          "name": "Dr. Rajesh Patil",
+          "designation": "Professor",
+          "email": "rajesh.patil@ccit.example"
+        },
+        "remedial_courses": [
+          {
+            "title": "Thermodynamics Foundation",
+            "coordinator": "Dr. Nandini Rao",
+            "coordinator_email": "nandini.rao@ccit.example",
+            "duration_weeks": 6,
+            "mode": "Weekend",
+            "seat_limit": 40
+          }
+        ]
+      },
+      "CE401": {
+        "subject": {
+          "code": "CE401",
+          "name": "Structural Analysis",
+          "department": "CE",
+          "semester": 4
+        },
+        "taught_by": {
+          "name": "Prof. Swati Mishra",
+          "designation": "Assistant Professor",
+          "email": "swati.mishra@ccit.example"
+        },
+        "remedial_courses": [
+          {
+            "title": "Structural Basics Bridge",
+            "coordinator": "Dr. Ashok Naidu",
+            "coordinator_email": "ashok.naidu@ccit.example",
+            "duration_weeks": 4,
+            "mode": "Weekend",
+            "seat_limit": 30
+          }
+        ]
+      },
+      "EC404": {
+        "subject": {
+          "code": "EC404",
+          "name": "Electromagnetic Theory",
+          "department": "ECE",
+          "semester": 4
+        },
+        "taught_by": {
+          "name": "Prof. Manoj Gowda",
+          "designation": "Assistant Professor",
+          "email": "manoj.gowda@ccit.example"
+        },
+        "remedial_courses": [
+          {
+            "title": "Signals and Fields Foundation",
+            "coordinator": "Dr. Deepa Krishnan",
+            "coordinator_email": "deepa.krishnan@ccit.example",
+            "duration_weeks": 5,
+            "mode": "Evening",
+            "seat_limit": 35
+          }
+        ]
+      },
+      "IT402": {
+        "subject": {
+          "code": "IT402",
+          "name": "Operating Systems",
+          "department": "IT",
+          "semester": 4
+        },
+        "taught_by": {
+          "name": "Dr. Meera Nair",
+          "designation": "Professor",
+          "email": "meera.nair@ccit.example"
+        },
+        "remedial_courses": []
+      },
+      "CE304": {
+        "subject": {
+          "code": "CE304",
+          "name": "Fluid Mechanics",
+          "department": "CE",
+          "semester": 3
+        },
+        "taught_by": {
+          "name": "Prof. Tanvi Shah",
+          "designation": "Assistant Professor",
+          "email": "tanvi.shah@ccit.example"
+        },
+        "remedial_courses": [
+          {
+            "title": "Fluid Mechanics Refresher",
+            "coordinator": "Prof. Tanvi Shah",
+            "coordinator_email": "tanvi.shah@ccit.example",
+            "duration_weeks": 5,
+            "mode": "Evening",
+            "seat_limit": 45
+          }
+        ]
+      }
+    },
+    "career": {
+      "VLSI Design Engineer/": {
+        "track": "VLSI Design Engineer",
+        "skills": [
+          "Circuit Design",
+          "Digital Logic Design",
+          "VLSI Design"
+        ],
+        "subjects": [
+          {
+            "code": "EC301",
+            "name": "Network Analysis",
+            "department": "ECE",
+            "semester": 3,
+            "skill": "Circuit Design"
+          },
+          {
+            "code": "EC302",
+            "name": "Electronic Devices and Circuits",
+            "department": "ECE",
+            "semester": 3,
+            "skill": "Circuit Design"
+          },
+          {
+            "code": "EC305",
+            "name": "Electronic Circuits Lab",
+            "department": "ECE",
+            "semester": 3,
+            "skill": "Circuit Design"
+          },
+          {
+            "code": "EC401",
+            "name": "Analog Circuits",
+            "department": "ECE",
+            "semester": 4,
+            "skill": "Circuit Design"
+          },
+          {
+            "code": "CS302",
+            "name": "Digital Logic Design",
+            "department": "CSE",
+            "semester": 3,
+            "skill": "Digital Logic Design"
+          },
+          {
+            "code": "EC304",
+            "name": "Digital Electronics",
+            "department": "ECE",
+            "semester": 3,
+            "skill": "Digital Logic Design"
+          },
+          {
+            "code": "EC403",
+            "name": "Microprocessors and Microcontrollers",
+            "department": "ECE",
+            "semester": 4,
+            "skill": "Digital Logic Design"
+          },
+          {
+            "code": "EC504",
+            "name": "VLSI Design",
+            "department": "ECE",
+            "semester": 5,
+            "skill": "Digital Logic Design"
+          },
+          {
+            "code": "EC504",
+            "name": "VLSI Design",
+            "department": "ECE",
+            "semester": 5,
+            "skill": "VLSI Design"
+          }
+        ]
+      },
+      "Structural Design Engineer/CE": {
+        "track": "Structural Design Engineer",
+        "skills": [
+          "Geotechnical Analysis",
+          "Solid Mechanics",
+          "Structural Design"
+        ],
+        "subjects": [
+          {
+            "code": "CE402",
+            "name": "Geotechnical Engineering",
+            "department": "CE",
+            "semester": 4,
+            "skill": "Geotechnical Analysis"
+          },
+          {
+            "code": "CE502",
+            "name": "Foundation Engineering",
+            "department": "CE",
+            "semester": 5,
+            "skill": "Geotechnical Analysis"
+          },
+          {
+            "code": "CE505",
+            "name": "Geotechnical Lab",
+            "department": "CE",
+            "semester": 5,
+            "skill": "Geotechnical Analysis"
+          },
+          {
+            "code": "CE301",
+            "name": "Strength of Materials",
+            "department": "CE",
+            "semester": 3,
+            "skill": "Solid Mechanics"
+          },
+          {
+            "code": "CE401",
+            "name": "Structural Analysis",
+            "department": "CE",
+            "semester": 4,
+            "skill": "Solid Mechanics"
+          },
+          {
+            "code": "CE401",
+            "name": "Structural Analysis",
+            "department": "CE",
+            "semester": 4,
+            "skill": "Structural Design"
+          },
+          {
+            "code": "CE501",
+            "name": "Design of Reinforced Concrete Structures",
+            "department": "CE",
+            "semester": 5,
+            "skill": "Structural Design"
+          },
+          {
+            "code": "CE601",
+            "name": "Design of Steel Structures",
+            "department": "CE",
+            "semester": 6,
+            "skill": "Structural Design"
+          }
+        ]
+      }
+    }
+  }
+}

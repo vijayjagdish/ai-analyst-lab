@@ -1,0 +1,70 @@
+# NOT APPLIED - see 00-namespace.yaml.
+#
+# Apache Jena Fuseki 6.2.0 - the shared, read-only curriculum knowledge graph.
+# Stateless: the graph is baked into the image (platform/fuseki/), so there is
+# no volume and a restart is a clean reload.
+#
+# Build and push the image first, then replace the `image:` line below:
+#     docker build -t <registry>/<repo>:ai-analyst-fuseki-6.2.0 platform/fuseki
+#
+# In-cluster address handed to student workspaces:
+#     FUSEKI_URL=http://fuseki.ai-data-services.svc.cluster.local:3030
+apiVersion: v1
+kind: Service
+metadata:
+  name: fuseki
+  namespace: ai-data-services
+  labels: { app: analyst-fuseki, app.kubernetes.io/part-of: ai-analyst-lab }
+spec:
+  selector: { app: analyst-fuseki }
+  ports:
+    - { name: http, port: 3030, targetPort: 3030 }
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: analyst-fuseki
+  namespace: ai-data-services
+  labels: { app: analyst-fuseki, app.kubernetes.io/part-of: ai-analyst-lab }
+spec:
+  replicas: 1
+  selector:
+    matchLabels: { app: analyst-fuseki }
+  template:
+    metadata:
+      labels: { app: analyst-fuseki, app.kubernetes.io/part-of: ai-analyst-lab }
+    spec:
+      automountServiceAccountToken: false
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        seccompProfile: { type: RuntimeDefault }
+      containers:
+        - name: fuseki
+          image: REPLACE-WITH-YOUR-REGISTRY/ai-analyst-fuseki:6.2.0
+          ports:
+            - { name: http, containerPort: 3030 }
+          env:
+            - { name: JAVA_OPTIONS, value: "-Xms128m -Xmx512m" }
+          # GET /$/ping is enabled by `fuseki:pingEP true` in config.ttl.
+          readinessProbe:
+            httpGet: { path: "/$/ping", port: 3030 }
+            initialDelaySeconds: 10
+            periodSeconds: 10
+          livenessProbe:
+            httpGet: { path: "/$/ping", port: 3030 }
+            initialDelaySeconds: 30
+            periodSeconds: 20
+          resources:
+            requests: { cpu: 100m, memory: 384Mi }
+            limits: { cpu: "1", memory: 768Mi }
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true      # the plain server writes no files
+            capabilities: { drop: ["ALL"] }
+          volumeMounts:
+            - { name: tmp, mountPath: /tmp }  # the JVM's own scratch files
+      volumes:
+        - name: tmp
+          emptyDir: {}

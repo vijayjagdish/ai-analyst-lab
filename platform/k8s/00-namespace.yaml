@@ -1,0 +1,12 @@
+# NOT APPLIED. These manifests were written and validated offline only
+# (kubectl kustomize + schema validation); nothing was sent to any cluster.
+#
+# A namespace of its own, so the three data services can be created, inspected
+# and removed (`kubectl delete ns ai-data-services`) without touching anything
+# that already runs in ai-lab or container-platform.
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: ai-data-services
+  labels:
+    app.kubernetes.io/part-of: ai-analyst-lab

@@ -1,0 +1,77 @@
+# NOT APPLIED - see 00-namespace.yaml.
+#
+# Qdrant 1.20 - one collection per student, created by provision_student.py,
+# which also signs each student a token scoped to that one collection.
+#
+# In-cluster address handed to student workspaces:
+#     QDRANT_URL=http://qdrant.ai-data-services.svc.cluster.local:6333
+apiVersion: v1
+kind: Service
+metadata:
+  name: qdrant
+  namespace: ai-data-services
+  labels: { app: analyst-qdrant, app.kubernetes.io/part-of: ai-analyst-lab }
+spec:
+  selector: { app: analyst-qdrant }
+  ports:
+    - { name: http, port: 6333, targetPort: 6333 }
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: analyst-qdrant
+  namespace: ai-data-services
+  labels: { app: analyst-qdrant, app.kubernetes.io/part-of: ai-analyst-lab }
+spec:
+  serviceName: qdrant
+  replicas: 1
+  selector:
+    matchLabels: { app: analyst-qdrant }
+  template:
+    metadata:
+      labels: { app: analyst-qdrant, app.kubernetes.io/part-of: ai-analyst-lab }
+    spec:
+      automountServiceAccountToken: false
+      securityContext:
+        runAsUser: 1000         # the -unprivileged image's user
+        runAsGroup: 1000
+        fsGroup: 1000
+        seccompProfile: { type: RuntimeDefault }
+      containers:
+        - name: qdrant
+          image: qdrant/qdrant:v1.20.0-unprivileged
+          ports:
+            - { name: http, containerPort: 6333 }
+          env:
+            # Admin credential AND the HS256 secret behind every student token.
+            # At least 32 bytes.
+            - name: QDRANT__SERVICE__API_KEY
+              valueFrom:
+                secretKeyRef: { name: analyst-admin, key: QDRANT_ADMIN_KEY }
+            - { name: QDRANT__SERVICE__JWT_RBAC, value: "true" }
+            - { name: QDRANT__TELEMETRY_DISABLED, value: "true" }
+          volumeMounts:
+            - { name: storage, mountPath: /qdrant/storage }
+          # /readyz and /livez answer without a key.
+          readinessProbe:
+            httpGet: { path: /readyz, port: 6333 }
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          livenessProbe:
+            httpGet: { path: /livez, port: 6333 }
+            initialDelaySeconds: 20
+            periodSeconds: 20
+          resources:
+            requests: { cpu: 250m, memory: 512Mi }
+            limits: { cpu: "1", memory: 1Gi }
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities: { drop: ["ALL"] }
+  volumeClaimTemplates:
+    - metadata:
+        name: storage
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        storageClassName: container-platform-storage
+        resources:
+          requests: { storage: 5Gi }

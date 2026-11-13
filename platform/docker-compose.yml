@@ -1,0 +1,104 @@
+# =============================================================================
+# The services that run OUTSIDE the student container — for a LOCAL stack.
+#
+#   postgres   one database per student            (the FACTS)
+#   qdrant     one collection per student          (the RULES, as vectors)
+#   fuseki     one shared read-only knowledge graph (the RELATIONSHIPS)
+#
+# The fourth outside service, the Bifrost LLM gateway, is NOT started here: it
+# already exists (ai-lab/bifrost-gateway/). Point the workspace at it with
+# GATEWAY_URL and a virtual key.
+#
+# Nothing in this file touches a Kubernetes cluster. It needs a machine with
+# Docker; it has not been run on the authoring workstation, which has none.
+# What WAS run there, as native processes, is the same three servers at the
+# same versions with the same configuration — see README.md.
+#
+#   cp env.example .env                       # set the secrets
+#   docker compose up -d --build               # the three services
+#   bash provision-local.sh stu-1001           # database + collection + student.env
+#   docker compose --profile workspace up -d   # the student's JupyterLab on :8888
+#
+# Every port is published on 127.0.0.1 only. If one is already taken on the
+# host (a PostgreSQL already on 5432, say), set PG_LOCAL_PORT / QDRANT_LOCAL_PORT
+# / FUSEKI_LOCAL_PORT / WORKSPACE_LOCAL_PORT in .env - provision-local.sh reads
+# the same variables.
+# =============================================================================
+
+services:
+  postgres:
+    image: postgres:16
+    environment:
+      POSTGRES_PASSWORD: ${PG_ADMIN_PASSWORD:?set PG_ADMIN_PASSWORD in .env}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      # Runs once, when the data directory is first initialised: stops student
+      # roles connecting to the `postgres` and `template1` databases.
+      - ./postgres/00-harden.sql:/docker-entrypoint-initdb.d/00-harden.sql:ro
+    # Students hold a role with CONNECTION LIMIT 6. 50 students x 6 = 300 at
+    # the very worst; the default of 100 would start refusing a busy class.
+    command: ["postgres", "-c", "max_connections=320", "-c", "shared_buffers=256MB"]
+    ports:
+      - "127.0.0.1:${PG_LOCAL_PORT:-5432}:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 3s
+      retries: 12
+
+  qdrant:
+    # The -unprivileged variant runs as UID 1000 instead of root.
+    image: qdrant/qdrant:v1.20.0-unprivileged
+    environment:
+      # This key is the admin credential AND the HS256 secret that signs every
+      # student token. At least 32 bytes: `openssl rand -base64 48`.
+      QDRANT__SERVICE__API_KEY: ${QDRANT_ADMIN_KEY:?set QDRANT_ADMIN_KEY in .env}
+      # Per-collection tokens. Without this, the only credentials are the admin
+      # key and a global read-only key - no way to give a student write access
+      # to their own collection and nothing else.
+      QDRANT__SERVICE__JWT_RBAC: "true"
+      QDRANT__TELEMETRY_DISABLED: "true"
+    volumes:
+      - qdrantdata:/qdrant/storage
+    ports:
+      - "127.0.0.1:${QDRANT_LOCAL_PORT:-6333}:6333"
+
+  fuseki:
+    build: ./fuseki
+    image: ai-analyst-fuseki:6.2.0
+    read_only: true
+    tmpfs:
+      - /tmp
+    ports:
+      - "127.0.0.1:${FUSEKI_LOCAL_PORT:-3030}:3030"
+
+  # The student's workspace. Behind a profile so `docker compose up` starts
+  # only the services; add `--profile workspace` once student.env exists.
+  workspace:
+    profiles: ["workspace"]
+    build: ..
+    image: ai-analyst-lab:v1
+    env_file:
+      # Written by provision-local.sh. `required: false` (Compose >= 2.24) so a
+      # plain `docker compose up` does not fail before the file exists.
+      - path: ./student.env
+        required: false
+    ports:
+      # Loopback only: Jupyter runs with NO password (the platform's proxy
+      # normally fronts it). Publish as "8888:8888" to reach it from another
+      # machine, and only on a network you trust.
+      - "127.0.0.1:${WORKSPACE_LOCAL_PORT:-8888}:8888"
+    volumes:
+      - workspace-home:/home/student
+    depends_on:
+      postgres:
+        condition: service_healthy
+      qdrant:
+        condition: service_started
+      fuseki:
+        condition: service_started
+
+volumes:
+  pgdata:
+  qdrantdata:
+  workspace-home:

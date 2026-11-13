@@ -1,0 +1,86 @@
+# NOT APPLIED - see 00-namespace.yaml.
+#
+# PostgreSQL 16 - one database per student, created by provision_student.py.
+# A DEDICATED server for this lab: 00-harden.sql removes a default other
+# applications may rely on, and every login can see role and database names.
+# Do not point the lab at litellm-postgres or any other shared instance.
+#
+# In-cluster address handed to student workspaces:
+#     PGHOST=postgres.ai-data-services.svc.cluster.local   PGPORT=5432
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres
+  namespace: ai-data-services
+  labels: { app: analyst-postgres, app.kubernetes.io/part-of: ai-analyst-lab }
+spec:
+  selector: { app: analyst-postgres }
+  ports:
+    - { name: postgres, port: 5432, targetPort: 5432 }
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: analyst-postgres
+  namespace: ai-data-services
+  labels: { app: analyst-postgres, app.kubernetes.io/part-of: ai-analyst-lab }
+spec:
+  serviceName: postgres
+  replicas: 1
+  selector:
+    matchLabels: { app: analyst-postgres }
+  template:
+    metadata:
+      labels: { app: analyst-postgres, app.kubernetes.io/part-of: ai-analyst-lab }
+    spec:
+      automountServiceAccountToken: false
+      securityContext:
+        runAsUser: 999          # the `postgres` user of the official image
+        runAsGroup: 999
+        fsGroup: 999
+        seccompProfile: { type: RuntimeDefault }
+      containers:
+        - name: postgres
+          image: postgres:16
+          # Each student role has CONNECTION LIMIT 6; 50 students could open
+          # 300. The default of 100 would refuse a busy class.
+          args: ["-c", "max_connections=320", "-c", "shared_buffers=256MB"]
+          ports:
+            - { name: postgres, containerPort: 5432 }
+          env:
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef: { name: analyst-admin, key: PG_ADMIN_PASSWORD }
+            # An EBS volume has lost+found at its root, which initdb refuses.
+            - name: PGDATA
+              value: /var/lib/postgresql/data/pgdata
+          volumeMounts:
+            - { name: data, mountPath: /var/lib/postgresql/data }
+            # Run once, when the data directory is first initialised.
+            - { name: init, mountPath: /docker-entrypoint-initdb.d, readOnly: true }
+          readinessProbe:
+            exec: { command: ["pg_isready", "-U", "postgres"] }
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          livenessProbe:
+            exec: { command: ["pg_isready", "-U", "postgres"] }
+            initialDelaySeconds: 30
+            periodSeconds: 20
+          resources:
+            requests: { cpu: 250m, memory: 768Mi }
+            limits: { cpu: "1", memory: 1536Mi }
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities: { drop: ["ALL"] }
+      volumes:
+        - name: init
+          configMap: { name: analyst-postgres-init }
+  volumeClaimTemplates:
+    - metadata:
+        name: data
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        # The EBS class litellm-postgres already uses on platform-cluster.
+        storageClassName: container-platform-storage
+        resources:
+          requests: { storage: 10Gi }

@@ -1,0 +1,42 @@
+## Apache Jena Fuseki - the SHARED, READ-ONLY curriculum knowledge graph.
+##
+## One dataset, /campus, loaded into memory from data/campus.ttl at start-up.
+## Every student queries the same graph; nobody can change it.
+##
+## Started with the PLAIN server (no web UI, no admin API):
+##   java -cp fuseki-server.jar org.apache.jena.fuseki.main.cmds.FusekiMainCmd --config=config.ttl
+##
+## What "read-only" rests on, in order of importance:
+##   1. Only QUERY endpoints are declared below. There is no update endpoint and
+##      no graph-store write endpoint, so there is no URL that accepts a write.
+##   2. The plain server has no /$/datasets admin API to add one at runtime.
+##   3. The dataset is in memory. A restart reloads it from the file.
+##
+## Two context settings protect a server that fifty students share:
+##   arq:queryTimeout        a runaway query is cancelled, not left to burn a core
+##   arq:httpServiceAllowed  SERVICE <url> would make THIS server issue HTTP
+##                           requests to wherever a student (or a prompt-injected
+##                           agent) points it - an SSRF hole into the cluster.
+
+PREFIX :        <#>
+PREFIX fuseki:  <http://jena.apache.org/fuseki#>
+PREFIX rdf:     <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX ja:      <http://jena.hpl.hp.com/2005/11/Assembler#>
+
+[] rdf:type fuseki:Server ;
+   fuseki:pingEP   true ;                      # GET /$/ping  -> health checks
+   fuseki:services ( :campus ) .
+
+:campus rdf:type fuseki:Service ;
+    fuseki:name     "campus" ;                 # http://<host>:3030/campus
+    fuseki:endpoint [ fuseki:operation fuseki:query ; fuseki:name "sparql" ] ;
+    fuseki:endpoint [ fuseki:operation fuseki:query ; fuseki:name "query" ] ;
+    fuseki:dataset  :dataset .
+
+:dataset rdf:type ja:MemoryDataset ;
+    # A file: IRI is resolved relative to THIS config file, so the same config
+    # works wherever the fuseki/ folder is placed.
+    ja:data    <file:data/campus.ttl> ;
+    # "first result within 10 s, whole query within 30 s" (milliseconds).
+    ja:context [ ja:cxtName "arq:queryTimeout" ;       ja:cxtValue "10000,30000" ] ;
+    ja:context [ ja:cxtName "arq:httpServiceAllowed" ; ja:cxtValue "false" ] .

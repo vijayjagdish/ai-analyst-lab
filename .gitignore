@@ -1,0 +1,12 @@
+# Secrets for the local stack, and one student's provisioned credentials.
+platform/.env
+platform/student.env
+platform/k8s/secrets.yaml
+
+# Produced by running the reference solution or the tests in place.
+assignment-src/.env
+assignment-src/output/*
+!assignment-src/output/.gitkeep
+__pycache__/
+.pytest_cache/
+.ipynb_checkpoints/

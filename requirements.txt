@@ -1,0 +1,51 @@
+# AI Analyst Lab - the Python stack baked into the student image.
+#
+# PINNED, not floated. The checkpoint tests assert exact behaviour of several of
+# these (which rule the embedding model retrieves, how sqlglot parses a
+# statement, the shape of a Strands tool spec), so a build-cache accident that
+# pulled a newer release could turn a correct submission red.
+#
+# These are the direct dependencies. constraints.txt pins everything they pull
+# in, resolved for linux/x86_64 + Python 3.12; the Dockerfile installs with
+#     pip install -r requirements.txt -c constraints.txt
+# Regenerate constraints.txt after changing a pin here - see README.md,
+# "Bumping the stack".
+#
+# Every version below was exercised by the lab's own test-suite on 2026-11-12.
+
+# ── The agent and the model gateway ──────────────────────────────────────────
+strands-agents[openai]==1.64.0      # Agent loop + @tool; the [openai] extra is the Bifrost-compatible provider
+openai==3.49.0                      # raw chat-completions calls (Milestone 2, notebook 2)
+
+# ── PostgreSQL: the facts ────────────────────────────────────────────────────
+psycopg[binary]==3.3.8              # driver; the binary extra bundles libpq, so no build tools in the image
+SQLAlchemy==2.1.8                   # available for students who prefer it; the reference solution uses psycopg
+sqlglot==30.31.0                    # parses model-written SQL for the guard (Milestone 3)
+
+# ── Qdrant: the rules ────────────────────────────────────────────────────────
+qdrant-client==1.20.0               # must stay within one minor version of the Qdrant server
+fastembed==0.9.1                    # CPU embeddings via ONNX; the model itself is baked in by the Dockerfile
+
+# ── Apache Jena: the relationships ───────────────────────────────────────────
+httpx==0.28.1                       # SPARQL over HTTP (Milestone 5)
+rdflib==7.6.0                       # optional: parse/inspect RDF locally in a notebook
+
+# ── Data, charts, validation ─────────────────────────────────────────────────
+pandas==3.1.1
+numpy==2.5.4
+duckdb==2.0.0                       # in-process SQL over the CSV files, for exploration
+matplotlib==3.11.2
+plotly==7.1.0
+pydantic==2.14.3
+python-dotenv==1.2.4
+requests==2.34.2
+
+# ── Tests, tracing, platform tooling ─────────────────────────────────────────
+pytest==9.2.0
+opentelemetry-sdk==1.45.2           # Strands emits spans; students can export them (ASSIGNMENT.md, "Going further")
+PyJWT==2.15.1                       # platform/provision_student.py signs Qdrant tokens with it (trainer role)
+
+# ── JupyterLab ───────────────────────────────────────────────────────────────
+jupyterlab==4.6.6
+ipykernel==7.4.0
+ipywidgets==8.1.9

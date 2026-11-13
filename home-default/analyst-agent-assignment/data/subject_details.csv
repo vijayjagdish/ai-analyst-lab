@@ -1,0 +1,51 @@
+subject,subject_name,department,semester,credits,subject_type
+CS301,Data Structures,CSE,3,4,Theory
+CS302,Digital Logic Design,CSE,3,4,Theory
+CS303,Discrete Mathematics,CSE,3,3,Theory
+CS304,Object Oriented Programming,CSE,3,3,Theory
+CS305,Data Structures Lab,CSE,3,2,Lab
+CS401,Design and Analysis of Algorithms,CSE,4,4,Theory
+CS402,Computer Organization and Architecture,CSE,4,4,Theory
+CS403,Database Management Systems,CSE,4,3,Theory
+CS404,Probability and Statistics,CSE,4,3,Theory
+CS405,Database Systems Lab,CSE,4,2,Lab
+IT301,Data Structures and Algorithms,IT,3,4,Theory
+IT302,Computer Organization,IT,3,4,Theory
+IT303,Discrete Structures,IT,3,3,Theory
+IT304,Programming in Java,IT,3,3,Theory
+IT305,Java Programming Lab,IT,3,2,Lab
+IT401,Database Management Systems,IT,4,4,Theory
+IT402,Operating Systems,IT,4,4,Theory
+IT403,Software Engineering,IT,4,3,Theory
+IT404,Statistics for Data Science,IT,4,3,Theory
+IT405,Web Development Lab,IT,4,2,Lab
+EC301,Network Analysis,ECE,3,4,Theory
+EC302,Electronic Devices and Circuits,ECE,3,4,Theory
+EC303,Signals and Systems,ECE,3,3,Theory
+EC304,Digital Electronics,ECE,3,3,Theory
+EC305,Electronic Circuits Lab,ECE,3,2,Lab
+EC401,Analog Circuits,ECE,4,4,Theory
+EC402,Control Systems,ECE,4,4,Theory
+EC403,Microprocessors and Microcontrollers,ECE,4,3,Theory
+EC404,Electromagnetic Theory,ECE,4,3,Theory
+EC405,Microprocessors Lab,ECE,4,2,Lab
+ME301,Engineering Thermodynamics,ME,3,4,Theory
+ME302,Mechanics of Solids,ME,3,4,Theory
+ME303,Material Science,ME,3,3,Theory
+ME304,Manufacturing Processes,ME,3,3,Theory
+ME305,Machine Drawing Lab,ME,3,2,Lab
+ME401,Fluid Mechanics,ME,4,4,Theory
+ME402,Kinematics of Machinery,ME,4,4,Theory
+ME403,Applied Thermodynamics,ME,4,3,Theory
+ME404,Metrology and Measurements,ME,4,3,Theory
+ME405,Fluid Mechanics Lab,ME,4,2,Lab
+CE301,Strength of Materials,CE,3,4,Theory
+CE302,Surveying,CE,3,4,Theory
+CE303,Building Materials and Construction,CE,3,3,Theory
+CE304,Fluid Mechanics,CE,3,3,Theory
+CE305,Surveying Lab,CE,3,2,Lab
+CE401,Structural Analysis,CE,4,4,Theory
+CE402,Geotechnical Engineering,CE,4,4,Theory
+CE403,Hydraulics and Hydraulic Machines,CE,4,3,Theory
+CE404,Concrete Technology,CE,4,3,Theory
+CE405,Concrete Lab,CE,4,2,Lab
